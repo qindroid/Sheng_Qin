@@ -1,0 +1,181 @@
+html {
+    min-height: 100%;
+    /* overflow: hidden; */
+}
+
+body {
+    height: calc(100vh - 8em);
+    padding: 4em;
+    background-color: rgb(25, 25, 25);
+    color: white;
+}
+
+.side {
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.leftside {
+    width: 43%;
+
+}
+
+.rightside {
+    width: 55%;
+
+}
+
+.job {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
+}
+
+.name {
+    font-size: 5em;
+}
+
+.title {
+    font-size: 1.5em;
+}
+
+.banner {
+    /* display: flex;
+    align-items: center;
+    flex-wrap: wrap; */
+    margin-top: 30px;
+
+}
+
+.child {
+    width: 100%;
+    height: 50%;
+    color: white;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    /* float: left;  */
+    font-size: 5em;
+
+}
+
+
+.line-1 {
+    position: relative;
+    top: 50%;
+
+    margin: 0 auto;
+    border-right: 2px solid rgba(255, 255, 255, .75);
+
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    /* //transform: translateY(-50%); */
+}
+
+/* Animation */
+.anim-typewriter {
+    animation:
+        typewriter 5s steps(12) 1s infinite normal both,
+        blinkTextCursor 0.7s steps(154) infinite normal;
+}
+
+@keyframes typewriter {
+    0% {
+        width: 0;
+    }
+
+    20% {
+        width: 10em;
+    }
+
+    80% {
+        width: 10em;
+    }
+
+    100% {
+        width: 0%;
+    }
+
+
+}
+
+
+
+
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgba(255, 255, 255, .75);
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}
+
+.var-highlight {
+    color: #C0AD60;
+}
+
+.string-highlight {
+    color: rgba(253, 149, 90, 0.8);
+}
+
+#typewriter {
+    font-size: 1em;
+    margin: 0;
+    /* font-family: "Courier New"; */
+
+    &:after {
+        content: "|";
+        animation: blink 500ms linear infinite alternate;
+    }
+}
+
+@-webkit-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.code {
+
+    font-family: 'Chakra Petch', sans-serif;
+
+}
+
+.block {
+    width: 80%;
+    height: 9em;
+    margin: 1em;
+    padding: 1em;
+    padding-left: 0;
+    background-color: rgb(39, 39, 39);
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+}
