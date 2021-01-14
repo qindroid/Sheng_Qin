@@ -3,31 +3,130 @@ html {
     /* overflow: hidden; */
 }
 
+
+
 body {
-    height: calc(100vh - 8em);
-    padding: 4em;
+    margin-left: 0;
+    width: 100%;
+    height: auto;
     background-color: rgb(25, 25, 25);
     color: white;
 }
 
-.side {
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+
+@media screen and (max-width:800px) {
+    .side {
+        width: 100%;
+        margin: 0;
+        padding-left: 20px;
+        display: inline-block;
+    }
+    
+    .leftside {
+        width: 95%;
+        
+        float: left;
+    
+    }
+    
+    .rightside {
+        
+        width: 95%;
+        float: left;
+        padding-left: 0%;
+    }
+
+    #myImg {
+        width: 100%;
+        height: auto;
+    }
+
+    .banner {
+        margin-top: 20px;
+    
+    }
+
+    .child {
+        
+        width: 100%;
+        height: 50%;
+        color: white;
+        
+        margin-top: 0;
+        margin-bottom: 1em;
+        /* float: left;  */
+        font-size: 3em;
+        
+    }
+
+    .modal-content {
+        width: 100%;
+      }
+
+}
+
+@media screen and (min-width:801px) {
+    .side {
+        padding: 0em;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        
+    }
+    
+    .leftside {
+        right: 50%;
+        margin-right: 2%;
+        position: fixed;
+        width: auto;
+        
+    
+    }
+    
+    .rightside {
+        margin-left: 50%;
+        width: 45%;
+    
+    }
+    #myImg {
+        width: 100%;
+        height: auto;
+    }
+
+    .banner {
+        margin-top: 30px;
+    
+    }
+
+    .child {
+        width: 100%;
+        height: 50%;
+        color: white;
+        margin-top: 2em;
+        margin-bottom: 2em;
+        font-size: 4em;   
+    }
+
+    
     
 }
 
-.leftside {
-    position: fixed;
-    width: 43%;
-
+.child a{
+    font-family: "Courier New";
+    font-weight: bold;
 }
 
-.rightside {
-    margin-left: 43%;
-    width: 55%;
+a:link {
+    color: white;
+}
 
+a:visited{
+    color: rgb(168, 168, 168);
+}
+
+a:hover {
+    color: red;
 }
 
 .job {
@@ -35,34 +134,23 @@ body {
     font-size: 1.5em;
 }
 
+.job1 {
+    position: absolute;
+    margin-top: -5.5em;
+    margin-left: 4.5em;
+    text-shadow: 2px 2px 4px #000000;
+    pointer-events: none;
+}
+
 .name {
-    font-size: 5em;
+    line-height:1.2;
+    font-size: 5.5em;
     font-family: 'Red Hat Display', sans-serif;
 }
 
 .title {
     font-size: 1.5em;
 }
-
-.banner {
-    /* display: flex;
-    align-items: center;
-    flex-wrap: wrap; */
-    margin-top: 30px;
-
-}
-
-.child {
-    width: 100%;
-    height: 50%;
-    color: white;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    /* float: left;  */
-    font-size: 4em;
-    
-}
-
 
 .line-1 {
     position: relative;
@@ -104,10 +192,6 @@ body {
 
 }
 
-
-
-
-
 @keyframes blinkTextCursor {
     from {
         border-right-color: rgba(255, 255, 255, .75);
@@ -127,14 +211,17 @@ body {
 }
 
 #typewriter {
+    
     font-size: 1em;
-    margin: 0;
+    padding-left: 20px;
+    
     /* font-family: "Courier New"; */
+    
+}
 
-    &:after {
-        content: "|";
-        animation: blink 500ms linear infinite alternate;
-    }
+#typewriter:after {
+    content: "|";
+    animation: blink 500ms linear infinite alternate;
 }
 
 @-webkit-keyframes blink {
@@ -172,17 +259,30 @@ body {
     font-family: 'Chakra Petch', sans-serif;
 
 }
+pre {
+    white-space: pre-line;
+}
 
 .block {
-    width: 80%;
+    width: 20em;
     height: 11em;
     margin: 1em;
-    padding: 1em;
-    padding-left: 0;
+    cursor: pointer;
+    padding-top: 1em;
     background-color: rgb(39, 39, 39);
     color: rgb(255, 255, 255);
     border-radius: 20px;
+    transition: 0.5s;
 }
+
+.block:hover {
+    -webkit-filter: blur(2px);
+    filter: blur(2px);
+    opacity: 0.9;
+    background-color: darkred;
+    
+}
+
 
 .project{
     animation: glitch 1s linear infinite;
@@ -267,8 +367,13 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 30px 00px;
+    margin: 20px 5px;
     cursor: pointer;
+    transition-duration: 0.4s;
+  }
+
+  .button2:hover {
+    box-shadow: 0 8px 24px 0 rgba(255, 1, 1, 0.486), 0 2px 20px 0 rgba(253, 0, 0, 0.644);
   }
 
   #myImg {
@@ -343,19 +448,13 @@ body {
     cursor: pointer;
   }
   
-  /* 100% Image Width on Smaller Screens */
-  @media only screen and (max-width: 1080px){
-    .modal-content {
-      width: 100%;
-    }
-  }
-
   .column {
     float: left;
     width: 50%;
     padding: 10px;
     height: auto; 
-  
+  }
+
   .row:after {
     content: "";
     display: table;

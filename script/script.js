@@ -1,4 +1,24 @@
-var TxtType = function(el, toRotate, period) {
+$( document ).ready(function() {
+    $(".block").hover(
+        
+        function () {
+            setTimeout(function() {
+            $(".block").after(`<div class="job job1">Click to contact</div>`);
+        }, 50);
+            
+        },
+        
+        function () {
+            setTimeout(function() {
+                $( ".job1" ).remove();
+              }, 200);
+        }
+        
+    );
+    
+  });
+
+var TxtType = function (el, toRotate, period) {
     this.toRotate = toRotate;
     this.el = el;
     this.loopNum = 0;
@@ -8,44 +28,46 @@ var TxtType = function(el, toRotate, period) {
     this.isDeleting = false;
 };
 
-TxtType.prototype.tick = function() {
+TxtType.prototype.tick = function () {
     var i = this.loopNum % this.toRotate.length;
     var fullTxt = this.toRotate[i];
 
     if (this.isDeleting) {
-    this.txt = fullTxt.substring(0, this.txt.length - 1);
+        this.txt = fullTxt.substring(0, this.txt.length - 1);
     } else {
-    this.txt = fullTxt.substring(0, this.txt.length + 1);
+        this.txt = fullTxt.substring(0, this.txt.length + 1);
     }
 
-    this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+    this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
 
     var that = this;
     var delta = 200 - Math.random() * 100;
 
-    if (this.isDeleting) { delta /= 2; }
-
-    if (!this.isDeleting && this.txt === fullTxt) {
-    delta = this.period;
-    this.isDeleting = true;
-    } else if (this.isDeleting && this.txt === '') {
-    this.isDeleting = false;
-    this.loopNum++;
-    delta = 500;
+    if (this.isDeleting) {
+        delta /= 2;
     }
 
-    setTimeout(function() {
-    that.tick();
+    if (!this.isDeleting && this.txt === fullTxt) {
+        delta = this.period;
+        this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === '') {
+        this.isDeleting = false;
+        this.loopNum++;
+        delta = 500;
+    }
+
+    setTimeout(function () {
+        that.tick();
     }, delta);
 };
 
-window.onload = function() {
+window.onload = function () {
     var elements = document.getElementsByClassName('typewrite');
-    for (var i=0; i<elements.length; i++) {
+    for (var i = 0; i < elements.length; i++) {
         var toRotate = elements[i].getAttribute('data-type');
         var period = elements[i].getAttribute('data-period');
         if (toRotate) {
-          new TxtType(elements[i], JSON.parse(toRotate), period);
+            new TxtType(elements[i], JSON.parse(toRotate), period);
         }
     }
     // INJECT CSS
@@ -65,10 +87,10 @@ function setupTypewriter(t) {
         writingTag = false,
         tagOpen = false,
         typeSpeed = 10,
-      tempTypeSpeed = 0;
+        tempTypeSpeed = 0;
 
-    var type = function() {
-      
+    var type = function () {
+
         if (writingTag === true) {
             tag += HTML[cursorPosition];
         }
@@ -91,8 +113,7 @@ function setupTypewriter(t) {
         if (!writingTag && !tagOpen) {
             if (HTML[cursorPosition] === " ") {
                 tempTypeSpeed = 0;
-            }
-            else {
+            } else {
                 tempTypeSpeed = (Math.random() * typeSpeed) + 50;
             }
             t.innerHTML += HTML[cursorPosition];
@@ -133,16 +154,18 @@ var modal = document.getElementById('myModal');
 var img = document.getElementById('myImg');
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
-img.onclick = function(){
-  modal.style.display = "block";
-  modalImg.src = this.src;
-  captionText.innerHTML = this.alt;
+img.onclick = function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
 }
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-  modal.style.display = "none";
+span.onclick = function () {
+    modal.style.display = "none";
 }
+
+
