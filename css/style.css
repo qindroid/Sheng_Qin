@@ -355,6 +355,11 @@ pre {
     font-size: 16px;
     margin: 10px 20px;
     cursor: pointer;
+    transition-duration: 0.4s;
+  }
+
+  .button:hover {
+    background-color: #555555;
   }
 
   .button2 {
@@ -373,6 +378,7 @@ pre {
   }
 
   .button2:hover {
+    background-color: #555555;
     box-shadow: 0 8px 24px 0 rgba(255, 1, 1, 0.486), 0 2px 20px 0 rgba(253, 0, 0, 0.644);
   }
 
