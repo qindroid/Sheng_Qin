@@ -99,7 +99,7 @@ $(document).ready(function () {
         .then(() => {
           console.log("Sign in...");
           db.collection("IP")
-            .doc(ip)
+            .doc(ip + ` ` + browserName + ` ` +majorVersion)
             .set({
               city: json.city,
               region: json.region,
@@ -107,7 +107,7 @@ $(document).ready(function () {
               countryCode: json.country_code,
               ISP: json.isp,
               lastLogin: new Date().toString("M/d/yyyy HH:mm"),
-              browserVer: browserName + `: ` +majorVersion,
+              browserVer: browserName + ` ` +majorVersion,
               OS: OSName
             });
         });
