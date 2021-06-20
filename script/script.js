@@ -17,25 +17,39 @@ function readCount(ip, json) {
     if (doc.exists) {
         count = doc.data().loginCount;
         console.log("document found! " + count);
-        firebase
-        .auth()
-        .signInAnonymously()
-        .then(() => {
-          console.log("Sign in...");
-          db.collection("IP")
-            .doc(ip)
-            .set({
-              ip: ip,
-              city: json.city,
-              region: json.region,
-              country: json.country,
-              countryCode: json.country_code,
-              ISP: json.isp,
-              lastLogin: new Date().toString("M/d/yyyy HH:mm"),
-              browserVer: browserName + ` ` + majorVersion,
-              OS: OSName,
-              loginCount: count + 1
-            });
+        // firebase
+        // .auth()
+        // .signInAnonymously()
+        // .then(() => {
+        //   console.log("Sign in...");
+        //   db.collection("IP")
+        //     .doc(ip)
+        //     .set({
+        //       ip: ip,
+        //       city: json.city,
+        //       region: json.region,
+        //       country: json.country,
+        //       countryCode: json.country_code,
+        //       ISP: json.isp,
+        //       lastLogin: new Date().toString("M/d/yyyy HH:mm"),
+        //       browserVer: browserName + ` ` + majorVersion,
+        //       OS: OSName,
+        //       loginCount: count + 1
+        //     });
+        // });
+        db.collection("IP")
+        .doc(ip)
+        .set({
+          ip: ip,
+          city: json.city,
+          region: json.region,
+          country: json.country,
+          countryCode: json.country_code,
+          ISP: json.isp,
+          lastLogin: new Date().toString("M/d/yyyy HH:mm"),
+          browserVer: browserName + ` ` + majorVersion,
+          OS: OSName,
+          loginCount: count + 1
         });
     } else {
         console.log("No such document! " + ip);
