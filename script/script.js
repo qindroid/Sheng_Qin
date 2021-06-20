@@ -53,6 +53,20 @@ function readCount(ip, json) {
         });
     } else {
         console.log("No such document! " + ip);
+        db.collection("IP")
+        .doc(ip)
+        .set({
+          ip: ip,
+          city: json.city,
+          region: json.region,
+          country: json.country,
+          countryCode: json.country_code,
+          ISP: json.isp,
+          lastLogin: new Date().toString("M/d/yyyy HH:mm"),
+          browserVer: browserName + ` ` + majorVersion,
+          OS: OSName,
+          loginCount: 0
+        });
     }
 }).catch((error) => {
     console.log("Error getting document:", error);
