@@ -8,7 +8,44 @@ var browserName = navigator.appName;
 var fullVersion = "" + parseFloat(navigator.appVersion);
 var majorVersion = parseInt(navigator.appVersion, 10);
 var nameOffset, verOffset, ix;
-var OSName="Unknown OS";
+var OSName = "Unknown OS";
+var count = 0;
+function readCount(ip, json) {
+  db.collection("IP")
+  .doc(ip.toString())
+  .get().then((doc) => {
+    if (doc.exists) {
+        count = doc.data().loginCount;
+        console.log("document found! " + count);
+        firebase
+        .auth()
+        .signInAnonymously()
+        .then(() => {
+          console.log("Sign in...");
+          db.collection("IP")
+            .doc(ip)
+            .set({
+              ip: ip,
+              city: json.city,
+              region: json.region,
+              country: json.country,
+              countryCode: json.country_code,
+              ISP: json.isp,
+              lastLogin: new Date().toString("M/d/yyyy HH:mm"),
+              browserVer: browserName + ` ` + majorVersion,
+              OS: OSName,
+              loginCount: count + 1
+            });
+        });
+    } else {
+        console.log("No such document! " + ip);
+    }
+}).catch((error) => {
+    console.log("Error getting document:", error);
+});
+  
+}
+
 
 function readUserBrowser() {
   // In Opera, the true version is after "Opera" or after "Version"
@@ -63,10 +100,10 @@ function readUserBrowser() {
     majorVersion = parseInt(navigator.appVersion, 10);
   }
 
-  if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
-  if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
-  if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
-  if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+  if (navigator.appVersion.indexOf("Win") != -1) OSName = "Windows";
+  if (navigator.appVersion.indexOf("Mac") != -1) OSName = "MacOS";
+  if (navigator.appVersion.indexOf("X11") != -1) OSName = "UNIX";
+  if (navigator.appVersion.indexOf("Linux") != -1) OSName = "Linux";
 }
 
 $(document).ready(function () {
@@ -93,30 +130,17 @@ $(document).ready(function () {
     if (this.readyState == 4 && this.status == 200) {
       var json = JSON.parse(this.responseText);
       readUserBrowser();
-      firebase
-        .auth()
-        .signInAnonymously()
-        .then(() => {
-          console.log("Sign in...");
-          db.collection("IP")
-            .doc(ip + ` ` + browserName + ` ` +majorVersion)
-            .set({
-              city: json.city,
-              region: json.region,
-              country: json.country,
-              countryCode: json.country_code,
-              ISP: json.isp,
-              lastLogin: new Date().toString("M/d/yyyy HH:mm"),
-              browserVer: browserName + ` ` +majorVersion,
-              OS: OSName
-            });
-        });
+      readCount(ip.toString(), json);
     }
   };
   XMLHttp.open("GET", "http://ipwhois.app/json/" + ip, true);
   XMLHttp.send();
-  
-  $("#footerContent").append(`&emsp;&emsp;&emsp;&emsp;(≥o≤) ` + Date.today().toString("MMM yyyy") + ` Sheng. 🤖💻⌨️🖥📱🖱`);
+
+  $("#footerContent").append(
+    `&emsp;&emsp;&emsp;&emsp;(≥o≤) ` +
+      Date.today().toString("MMM yyyy") +
+      ` Sheng. 🤖💻⌨️🖥📱🖱`
+  );
 });
 
 var TxtType = function (el, toRotate, period) {
