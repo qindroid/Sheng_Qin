@@ -1,5 +1,4 @@
 var ip = "";
-var XMLHttp = new XMLHttpRequest();
 
 /* get users browser ver.*/
 var nVer = navigator.appVersion;
@@ -17,6 +16,7 @@ function readCount(ip, json) {
     if (doc.exists) {
         count = doc.data().loginCount;
         console.log("document found! " + count);
+        // sign in Anonymously
         // firebase
         // .auth()
         // .signInAnonymously()
@@ -49,7 +49,8 @@ function readCount(ip, json) {
           lastLogin: new Date().toString("M/d/yyyy HH:mm"),
           browserVer: browserName + ` ` + majorVersion,
           OS: OSName,
-          loginCount: count + 1
+          loginCount: count + 1,
+          lastVisitPage: window.location.pathname
         });
     } else {
         console.log("No such document! " + ip);
@@ -65,7 +66,8 @@ function readCount(ip, json) {
           lastLogin: new Date().toString("M/d/yyyy HH:mm"),
           browserVer: browserName + ` ` + majorVersion,
           OS: OSName,
-          loginCount: 0
+          loginCount: 0,
+          lastVisitPage: window.location.pathname
         });
     }
 }).catch((error) => {
@@ -149,20 +151,33 @@ $(document).ready(function () {
     }
   );
 
-  $.getJSON("http://ip.jsontest.com/", function (data) {
-    //console.log(JSON.stringify(data, null, 2));
-    ip = data.ip; // Current IP
+  $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+    data = data.trim().split('\n').reduce(function(obj, pair) {
+      pair = pair.split('=');
+      return obj[pair[0]] = pair[1], obj;
+    }, {});
+    ip = data.ip;
+    if(ip != '') {
+        getIPJson(ip);
+    } else {
+        console.log("GET DATA ERROR")
+    }
   });
 
-  XMLHttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      var json = JSON.parse(this.responseText);
-      readUserBrowser();
-      readCount(ip.toString(), json);
-    }
-  };
-  XMLHttp.open("GET", "http://ipwhois.app/json/" + ip, true);
-  XMLHttp.send();
+
+// Sending an API request using jQuery.ajax
+function getIPJson(ip) {
+    $.ajax({
+        method: 'GET',
+        contentType: 'text/plain',
+        url: 'http://ipwhois.app/json/' + ip,
+        dataType: 'json',
+        success: function(json) {
+            readUserBrowser();
+            readCount(ip.toString(), json);
+        }
+    });
+}
 
   $("#footerContent").append(
     `&emsp;&emsp;&emsp;&emsp;(≥o≤) ` +
