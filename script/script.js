@@ -328,6 +328,17 @@ if (img != null) {
   };
 }
 
+img = document.getElementById("myImg2");
+modalImg = document.getElementById("img01");
+captionText = document.getElementById("caption");
+if (img != null) {
+  img.onclick = function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+  };
+}
+
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
