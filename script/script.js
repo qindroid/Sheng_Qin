@@ -170,7 +170,7 @@ function getIPJson(ip) {
     $.ajax({
         method: 'GET',
         contentType: 'text/plain',
-        url: 'http://ipwhois.app/json/' + ip,
+        url: 'https://ipwhois.app/json/' + ip,
         dataType: 'json',
         success: function(json) {
             readUserBrowser();
