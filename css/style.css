@@ -478,8 +478,10 @@ pre {
 .modal-content {
   margin: auto;
   display: block;
-  width: 80%;
-  max-width: 1500px;
+  width: auto;
+  height: auto;
+  max-width: 1300px;
+  max-height: 1000px;
 }
 
 /* Caption of Modal Image */
